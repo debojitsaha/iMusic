@@ -1,0 +1,12 @@
+.controls {
+  display: flex;
+  justify-content: space-between;
+  padding: 20px;
+
+  .left,
+  .right,
+  .center {
+    display: flex;
+    gap: 30px;
+  }
+}

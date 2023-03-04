@@ -1,12 +1,13 @@
 import './App.css';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import MusicPlayer from './components/MusicPlayer';
+import { Container } from 'react-bootstrap';
 
 function App() {
   return (
-    <div>
+    <Container fluid className='p-5'>
       <MusicPlayer />
-    </div>
+    </Container>
   );
 }
 
