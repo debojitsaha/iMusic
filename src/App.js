@@ -5,7 +5,7 @@ import { Container } from 'react-bootstrap';
 
 function App() {
   return (
-    <Container fluid className='p-5'>
+    <Container className='p-5'>
       <MusicPlayer />
     </Container>
   );
