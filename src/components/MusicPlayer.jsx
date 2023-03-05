@@ -1,20 +1,18 @@
-import React from "react";
+import React, { useRef } from "react";
 import "./MusicPlayer.scss";
-import MusicData from "./MusicData.js";
 import Header from "./Header/Header";
 import Controls from "./Controls/Controls";
 import Song from "./Song/Song";
 
 const Music_Player = () => {
+  const audioElem = useRef()
+
   return (
     <div className="music">
-      {MusicData.map((data) => (
-        <div>
-          <Header data={data} />
-          <Song data={data} />
-          <Controls data={data} />
-        </div>
-      ))}
+          <Header audioElem={audioElem} />
+          <Song audioElem={audioElem} />
+          <Controls audioElem={audioElem} />
+        
     </div>
   );
 };

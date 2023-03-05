@@ -1,23 +1,26 @@
-import React from "react";
+import React, { useContext, useEffect } from "react";
 import "./Song.scss";
 import Image from "react-bootstrap/Image";
 import SeekBar from "react-seekbar-component";
+import musicContext from "../../contextApi/musicContext";
 
-const Song = ({ data }) => {
+const Song = ({audioElem}) => {
+  const { isPlaying, currentSong } = useContext(musicContext);
+
+  useEffect(() => {
+    if(isPlaying){
+      audioElem.current.play()
+    }
+    else{
+      audioElem.current.pause()
+    }
+  }, [isPlaying,currentSong])
+  
+  
   return (
     <div className="song">
-      <Image src={data.thumbnail} />
-      <SeekBar
-        getNumber={0}
-        width="100%"
-        backgroundColor="gray"
-        fillColor="red"
-        fillSecondaryColor="blue"
-        headColor="white"
-        headShadow="white"
-        headShadowSize={6}
-        progress={89}
-      />
+      <Image src={currentSong.thumbnail} />
+      <audio src={currentSong.src} ref={audioElem} />
     </div>
   );
 };
