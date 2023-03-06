@@ -6,6 +6,8 @@ const MusicState = (props) => {
   const [isPlaying, setIsPlaying] = useState(false);
   const [songs, setSongs] = useState(MusicData);
   const [currentSong, setCurrentSong] = useState(MusicData[0]);
+  const [loop, setLoop] = useState(false);
+
   return (
     <MusicContext.Provider
       value={{
@@ -15,6 +17,8 @@ const MusicState = (props) => {
         setSongs,
         currentSong,
         setCurrentSong,
+        loop,
+        setLoop,
       }}
     >
       {props.children}
