@@ -9,17 +9,30 @@
     margin-right: 5px;
     object-fit: cover;
     object-position: center;
+
+    @media (max-width: 550px) {
+      width: 50px;
+      height: 50px;
+    }
   }
 
   span {
     font-size: 22px;
     font-weight: 600;
     color: rgb(46, 44, 44);
+
+    @media (max-width: 550px) {
+      font-size: 16px;
+    }
   }
 
   p {
     font-size: 16px;
     font-weight: 500;
     color: rgb(3, 114, 108);
+
+    @media (max-width: 550px) {
+      font-size: 12px;
+    }
   }
 }
