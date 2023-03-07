@@ -8,9 +8,12 @@ import {
 } from "react-icons/rx";
 import { FiPlay, FiPause, FiShuffle } from "react-icons/fi";
 import { MdOutlineDragIndicator } from "react-icons/md";
+import { CgMoreVerticalO } from "react-icons/cg";
 import musicContext from "../../contextApi/musicContext";
 import Modal from "react-bootstrap/Modal";
 import Button from "react-bootstrap/Button";
+import Dropdown from "react-bootstrap/Dropdown";
+import DropdownButton from "react-bootstrap/DropdownButton";
 import { Reorder, useDragControls } from "framer-motion";
 
 const Controls = ({ audioElem }) => {
@@ -25,6 +28,8 @@ const Controls = ({ audioElem }) => {
     setLoop,
     duration,
     currentTime,
+    shuffle,
+    setShuffle,
   } = useContext(musicContext);
 
   const [show, setShow] = useState(false);
@@ -44,10 +49,17 @@ const Controls = ({ audioElem }) => {
     // console.log(index);
     // console.log(songs[songs.length - 1]);
 
-    if (index === 0) {
-      setCurrentSong(songs[songs.length - 1]);
+    if (shuffle) {
+      const shuffleIndex = Math.floor(
+        songs.length - Math.random() * songs.length
+      );
+      setCurrentSong(songs[shuffleIndex]);
     } else {
-      setCurrentSong(songs[index - 1]);
+      if (index === 0) {
+        setCurrentSong(songs[songs.length - 1]);
+      } else {
+        setCurrentSong(songs[index - 1]);
+      }
     }
 
     audioElem.current.currentTime = 0;
@@ -56,10 +68,17 @@ const Controls = ({ audioElem }) => {
   const next = () => {
     const index = songs.findIndex((song) => song.name === currentSong.name);
 
-    if (index === songs.length - 1) {
-      setCurrentSong(songs[0]);
+    if (shuffle) {
+      const shuffleIndex = Math.floor(
+        songs.length - Math.random() * songs.length
+      );
+      setCurrentSong(songs[shuffleIndex]);
     } else {
-      setCurrentSong(songs[index + 1]);
+      if (index === songs.length - 1) {
+        setCurrentSong(songs[0]);
+      } else {
+        setCurrentSong(songs[index + 1]);
+      }
     }
 
     audioElem.current.currentTime = 0;
@@ -67,6 +86,10 @@ const Controls = ({ audioElem }) => {
 
   const handleLoop = () => {
     setLoop(!loop);
+  };
+
+  const handeShuffle = () => {
+    setShuffle(!shuffle);
   };
 
   const updateSongs = () => {
@@ -82,6 +105,8 @@ const Controls = ({ audioElem }) => {
         next();
       }
     }
+    // console.log(currentTime);
+    // console.log(duration);
   }, [currentTime]);
 
   return (
@@ -134,13 +159,13 @@ const Controls = ({ audioElem }) => {
         />
       </div>
       <div className="center">
-        <RxTrackPrevious size={"30px"} onClick={previous} cursor="pointer" />
+        <RxTrackPrevious onClick={previous} cursor="pointer" className='icons' />
         {!isPlaying ? (
-          <FiPlay size={"30px"} onClick={PlayPause} cursor="pointer" />
+          <FiPlay onClick={PlayPause} cursor="pointer" className='icons' />
         ) : (
-          <FiPause size={"30px"} onClick={PlayPause} cursor="pointer" />
+          <FiPause onClick={PlayPause} cursor="pointer"  className='icons' />
         )}
-        <RxTrackNext size={"30px"} onClick={next} cursor="pointer" />
+        <RxTrackNext onClick={next} cursor="pointer" className='icons' />
       </div>
       <div className="right">
         <RxHamburgerMenu
@@ -149,8 +174,44 @@ const Controls = ({ audioElem }) => {
           cursor="pointer"
           onClick={handleShow}
         />
-        <FiShuffle size={"30px"} color="#f73263" cursor="pointer" />
+        <FiShuffle
+          size={"30px"}
+          color={shuffle ? "#f73263" : "black"}
+          cursor="pointer"
+          onClick={handeShuffle}          
+        />
       </div>
+      <DropdownButton
+        align="end"        
+        title={<CgMoreVerticalO size={"25px"} color="black" />}
+        className="more"
+        id="dropdown-menu-align-end"
+      >
+        <Dropdown.Item eventKey="1">
+          <RxLoop
+            color={loop ? "#f73263" : "black"}
+            onClick={handleLoop}
+            cursor="pointer"
+            className='icons'
+          />
+        </Dropdown.Item>
+        <Dropdown.Item eventKey="2">
+          <RxHamburgerMenu
+            color="#f73263"
+            cursor="pointer"
+            onClick={handleShow}
+            className='icons'
+          />
+        </Dropdown.Item>
+        <Dropdown.Item eventKey="3">
+          <FiShuffle
+            color={shuffle ? "#f73263" : "black"}
+            cursor="pointer"
+            onClick={handeShuffle}
+            className='icons'
+          />
+        </Dropdown.Item>
+      </DropdownButton>
     </div>
   );
 };

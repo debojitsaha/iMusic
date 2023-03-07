@@ -10,6 +10,7 @@ const MusicState = (props) => {
   const [percentage, setPercentage] = useState(0);
   const [duration, setDuration] = useState(0);
   const [currentTime, setCurrentTime] = useState(0);
+  const [shuffle, setShuffle] = useState(false)
 
   return (
     <MusicContext.Provider
@@ -28,6 +29,8 @@ const MusicState = (props) => {
         setDuration,
         currentTime,
         setCurrentTime,
+        shuffle, 
+        setShuffle
       }}
     >
       {props.children}

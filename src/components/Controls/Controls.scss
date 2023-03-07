@@ -1,6 +1,7 @@
 .controls {
   display: flex;
   justify-content: space-between;
+  align-items: center;
   padding: 20px;
 
   .left,
@@ -8,5 +9,49 @@
   .center {
     display: flex;
     gap: 30px;
+  }
+
+  .more {
+    display: none;
+  }
+
+  .icons{
+    font-size: 30px;
+  }
+
+  @media (max-width: 750px) {
+    justify-content: space-between;
+    align-items: center;
+    align-content: center;
+
+    .left,
+    .right {
+      display: none;
+    }
+
+    .center{
+      gap: 15px;
+    }
+
+    .more {
+      display: inline-block;
+    }
+    .more button {
+      background: transparent;
+      outline: none !important;
+      border: 0px;
+      padding: 0;
+    }
+    .more button:active {
+      background: transparent;
+      outline: none !important;
+      border: 0px;
+      padding: 0;
+    }
+
+    .icons{
+      font-size: 20px;
+      font-weight: 500;
+    }
   }
 }
