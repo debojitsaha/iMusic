@@ -28,10 +28,11 @@ const Song = ({ audioElem }) => {
     const time = e.currentTarget.currentTime;
 
     setPercentage(+percent);
-    setCurrentTime(time.toFixed(2));
+    setCurrentTime(parseInt(time.toFixed(2)));
   };
 
   useEffect(() => {
+    console.log(currentSong);
     if (isPlaying) {
       audioElem.current.play();
     } else {
@@ -48,7 +49,7 @@ const Song = ({ audioElem }) => {
         ref={audioElem}
         onTimeUpdate={getCurrDuration}
         onLoadedData={(e) => {
-          setDuration(e.currentTarget.duration.toFixed(2));
+          setDuration(parseInt(e.currentTarget.duration.toFixed(2)));
         }}
       />
     </div>

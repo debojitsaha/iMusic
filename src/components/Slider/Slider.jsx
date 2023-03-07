@@ -13,15 +13,20 @@ function Slider({ percentage = 0, onChange }) {
   useEffect(() => {
     const rangeWidth = rangeRef.current.getBoundingClientRect().width;
     const thumbWidth = thumbRef.current.getBoundingClientRect().width;
-    const centerThumb = (thumbWidth / 100) * percentage * -1;
+    let centerThumb = (thumbWidth / 100) * percentage * -1;
+    centerThumb = (centerThumb === -0 || isNaN(centerThumb)) ? 0 : centerThumb;
+    // isNaN(centerThumb)?0:centerThumb
+    console.log(centerThumb);
     const centerProgressBar =
       thumbWidth +
       (rangeWidth / 100) * percentage -
       (thumbWidth / 100) * percentage;
-    setPosition(percentage);
+    setPosition(isNaN(percentage)? 0 : percentage);
     setMarginLeft(centerThumb);
     setProgressBarWidth(centerProgressBar);
   }, [percentage]);
+
+  console.log(position);
 
   return (
     <div className="slider-container">

@@ -97,7 +97,8 @@ const Controls = ({ audioElem }) => {
   };
 
   useEffect(() => {
-    if (currentTime === duration) {
+    if (currentTime >= duration) {
+      // console.log('hello');
       if (loop) {
         audioElem.current.currentTime = 0;
         audioElem.current.play();
@@ -105,8 +106,8 @@ const Controls = ({ audioElem }) => {
         next();
       }
     }
-    // console.log(currentTime);
-    // console.log(duration);
+    // console.log("Time= "+currentTime);
+    // console.log("Duration= "+duration);
   }, [currentTime]);
 
   return (
