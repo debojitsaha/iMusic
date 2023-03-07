@@ -1,9 +1,36 @@
-.song{
-    img{
-        object-fit: cover;
-        object-position: center;
-        width: 100%;
-        border-radius: 30px;
-        padding: 20px;
-    }
+.song {
+  img {
+    object-fit: cover;
+    object-position: center;
+    width: 100%;
+    border-radius: 30px;
+    padding: 20px;
+  }
+  #progress {
+    background-color: rgb(179, 179, 179);
+    height: 10px;
+    cursor: pointer;
+    width: 100%;
+    margin: 5px auto 5px;
+    border-radius: 5px;
+  }
+
+  #progress-bar {
+    position: relative;
+    background-color: rgb(3, 177, 168);
+    height: 10px;
+    border-radius: 5px 0 0 5px;
+  }
+
+  #progress-bar::after {
+    content: "";
+    position: absolute;
+    right: 0;
+    top: 50%;
+    height: 20px;
+    width: 20px;
+    border-radius: 50%;
+    background-color: rgb(3, 177, 168);
+    transform: translate(100%, -50%);
+  }
 }

@@ -1,4 +1,4 @@
-import React, { useContext, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import "./Controls.scss";
 import {
   RxTrackPrevious,
@@ -23,6 +23,8 @@ const Controls = ({ audioElem }) => {
     setCurrentSong,
     loop,
     setLoop,
+    duration,
+    currentTime,
   } = useContext(musicContext);
 
   const [show, setShow] = useState(false);
@@ -65,19 +67,22 @@ const Controls = ({ audioElem }) => {
 
   const handleLoop = () => {
     setLoop(!loop);
-
-    if (audioElem.current.currentTime === audioElem.current.duration) {
-      if (loop) {
-        audioElem.current.currentTime = 0;
-      } else {
-        next();
-      }
-    }
   };
 
   const updateSongs = () => {
     setSongs(items);
   };
+
+  useEffect(() => {
+    if (currentTime === duration) {
+      if (loop) {
+        audioElem.current.currentTime = 0;
+        audioElem.current.play();
+      } else {
+        next();
+      }
+    }
+  }, [currentTime]);
 
   return (
     <div className="controls">
@@ -98,12 +103,12 @@ const Controls = ({ audioElem }) => {
                   justifyContent: "space-between",
                   fontSize: "20px",
                   fontWeight: "500",
-                  color:`${currentSong.name === item.name ? "#fd2a3c" : "#222222"}`                  
+                  color: `${
+                    currentSong.name === item.name ? "#fd2a3c" : "#222222"
+                  }`,
                 }}
               >
-                <span>
-                  {item.name}
-                </span>
+                <span>{item.name}</span>
                 <MdOutlineDragIndicator
                   className="reorder-handle"
                   onPointerDown={(e) => controls.start(e)}
